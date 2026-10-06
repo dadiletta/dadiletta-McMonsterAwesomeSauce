@@ -1,13 +1,22 @@
 public class Monster {
-    public static int specialMonsters = 1;
+    // INSTANCE VARS
+    private int health;
+    private int maxDmg;
     
     // CONSTRUCTOR
     public Monster() {
-        if(Monster.specialMonsters > 0) {
-            System.out.println("I'm special");
-            Monster.specialMonsters--;
-        }
-        else System.out.println("I'm just an average monster");
+        health = 100;
+        // 10 - 25 as max dmg
+        maxDmg = (int)(Math.random() * 15 + 1) + 10;
+    }
+
+    // ACCESORS
+    public int health() { return health; }
+    public int maxDmg() { return maxDmg; }
+
+    // MUTATORS
+    public void takeDmg(int dmg){
+        health -= dmg;
     }
 
 }
