@@ -22,4 +22,13 @@ public class Monster {
         if(health <= 0) System.out.println("Aww, monster ded :(");
     }
 
+    public String status(){
+        String answer = "Monster: " + health + " / Damage: " + maxDmg;
+        if(maxDmg > 50) {
+            answer += " [DANGER]";
+        }
+        return answer;
+        
+    }
+
 }

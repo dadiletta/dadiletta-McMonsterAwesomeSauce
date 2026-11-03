@@ -39,7 +39,12 @@ public class BattleMonster {
                 }
                 // if no dog and no dog attack, roll for damage
                 int damage = (int)(Math.random() * maxDmg);
-                findWeakest().takeDmg(damage);
+                Monster target = findWeakest();
+                target.takeDmg(damage);
+                // is the monster dead? if so, null it out
+                if(target.health() <= 0) target = null;
+
+
             }
             // heal
             else if(input.equals("heal")){
@@ -50,6 +55,22 @@ public class BattleMonster {
             }
             
             // MONSTERS TURN
+            for(Monster m : monsters){
+                if(m == null) {
+                    // chance that a monster gets created
+                    int randomMcRandomFace = (int)(Math.random() * 10);
+                    if(randomMcRandomFace > 7) {
+                        m = new Monster();
+                        System.out.println("Ruh-ro. A new monster joined the gang");
+                    }
+                } else {
+                    // monster attack human
+                    int dmgFromMonster = (int)(Math.random() * m.maxDmg() + 1);
+                    playerHealth -= dmgFromMonster;
+                    System.out.println("\n MONSTER HITS FOR " + dmgFromMonster);
+                    System.out.println("CURRENT HEALTH: " + playerHealth + "\n");
+                }
+            }
             
             
         } while(!input.equals("quit"));
@@ -69,7 +90,7 @@ public class BattleMonster {
 
     public static Monster findWeakest(){
         // grab the first non-null monster as our weakest
-        Monster result;
+        Monster result = null;
         for(Monster m : monsters) if(m != null) result = m;
         // look for a weaker monster
         for(Monster m: monsters){
